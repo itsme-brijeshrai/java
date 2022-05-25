@@ -1,0 +1,16 @@
+package com.inheritance;
+
+public class Main extends Practise {
+	int x = 20;
+	void funx() {
+		System.out.println("This is main");
+	}
+	
+	public static void main(String[] args) {
+		Main main = new Main();
+		System.out.println(main.x);
+		System.out.println(main.i);
+		main.funA();
+		main.funx();
+	}
+}

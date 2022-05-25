@@ -1,0 +1,32 @@
+package com.inheritance;
+
+public class Animal {
+	String breed = "Dog";
+	void display() {
+		System.out.println("They live upto 12 years of age !");
+	}
+	void eat() {
+		System.out.println("Can eat !");
+	}
+}
+  class Dog extends Animal{
+	  @Override
+	  void display() {
+		  int age = 6;
+		  System.out.println("He is " + age + " years old");
+//		  super.display();
+	  }
+	  
+	  @Override	 
+	  void eat() {
+		 System.out.println("Can bark !");
+	 }
+	 public static void main(String[] args) {	 
+		 Dog dog = new Dog();
+		System.out.print(dog.breed + " ");dog.eat();
+		dog.display();
+		
+		Animal animal = new Animal();
+		System.out.println(animal.breed);animal.eat();animal.display();
+	}
+ }

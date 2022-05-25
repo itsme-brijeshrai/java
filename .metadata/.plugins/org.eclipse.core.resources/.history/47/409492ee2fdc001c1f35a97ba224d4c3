@@ -1,0 +1,15 @@
+package com.inheritance;
+
+public class Animal {
+	String breed = "Dog";
+	
+	void eat() {
+		System.out.println("Can eat !");
+	}
+}
+  class Dog extends Animal{
+	 public static void main(String[] args) {
+		Dog dog = new Dog();
+		System.out.print(dog.breed + " ");dog.eat();
+	}
+ }

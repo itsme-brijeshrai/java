@@ -1,0 +1,19 @@
+package com.inheritance;
+
+public class Bank {
+	String branchName;
+	String ifscCode;
+	
+	void displayDetials() {
+		System.out.println("Name of the branch is : "+ branchName+"Ifsc code : "+ifscCode);
+	}
+}
+class AxisBank extends Bank{
+	double rateOfInterest = 12;
+	
+	
+}
+
+class ICICIBank extends Bank{
+	double rateOfInterest = 16;
+}

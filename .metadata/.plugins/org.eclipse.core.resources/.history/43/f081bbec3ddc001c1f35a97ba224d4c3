@@ -1,0 +1,10 @@
+package com.inheritance;
+
+public class Bank {
+	String branchName;
+	String ifscCode;
+	
+	void displayDetials() {
+		System.out.println("Name of the branch is : "+ branchName+"Ifsc code : "+ifscCode);
+	}
+}

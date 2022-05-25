@@ -1,0 +1,9 @@
+package com.inheritance;
+
+public class Animal {
+	String breed = "Dog";
+	
+	void eat() {
+		System.out.println("Can eat.");
+	}
+}
