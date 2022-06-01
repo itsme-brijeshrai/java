@@ -1,0 +1,64 @@
+IS - A Relationship :
+Can access by creating an object in extended class (i.e Child class)
+Inheritance = IS - A relationship
+
+for example, Advantages :
+class A extends B 1. Refers to inheritance or implementation.
+{ 2. Expressed using keyword ?extends?.
+new B().print(); 3. Main advantage is code re-usability.
+....
+}
+
+There are Two types of Is - A relationship :
+
+1. Generalization :
+Moving up in a hierarchy, looking for general features from bottom to up is 'Generalization'
+e.g.
+class B extends A, class C extends A
+[it means both class A, B, C has same methods..... C has all features of A
+
+
+2. Specialization :
+Moving Down in a hierarchy, looking for common features from up to bottom is 'Specialization'
+e.g.
+class B extends A, class C extends A
+[it means both class A, B, C has same methods..... A has common features of C
+
+-------------------------------------------------------------------------------------------------------------------
+
+HAS - A Relationship :
+Can access by direct creating an object in any class
+Composition = HAS - A relationship
+
+for example,
+class A class B Advantages :
+{ { 1. Refers to composition and Aggregation
+void print() new A().print(); 2. There is no specific keyword to implement HAS-A relationship but mostly we are depended
+{ } .... upon ?new? keyword.
+.... 3. Main advantage can access any class by creating an object.
+} }
+
+There are Two types of HAS - A relationship :
+
+1. Aggregation :
+Also called as 'Weaker relationship'.
+e.g.
+class Car class Color
+{ {
+.... ....
+} }
+
+[ No need to create an object of Color in Car, coz if we doesn't access the Color properties in Car, nothing goes wrong !!
+Hence, both Car and Color are loosely associated ]
+
+2. Specialization :
+Also called as 'Stronger relationship'.
+e.g.
+class Car class Engine
+{ {
+new Engine();
+.... ....
+} }
+
+[ We have to create an object of Engine in Car, coz if we dont access the Engine properties in Car, Car will not move ??
+Hence, both Car and Color are Strongly associated 

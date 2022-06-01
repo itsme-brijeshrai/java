@@ -1,8 +1,0 @@
-package com.inheritance;
-
-public class Practise {
-	int i = 10;
-	void funA() {
-		System.out.println("This is me");
-	}
-}
