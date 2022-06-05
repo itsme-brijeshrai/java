@@ -2,24 +2,16 @@ package com.w3d1q2;
 
 public abstract class Student {
 	String name;
-	String Address;
+	String address;
 	
-	
-	/**
-	 * 
-	 */
-	public Student() {
-		super();
-	}
-
 
 	public Student(String name, String address) {
 		this.name = name;
-		Address = address;
+		this.address = address;
 	}
 	
 	
 
-	abstract void getPercentage();
+	abstract double getPercentage();
 }
 
