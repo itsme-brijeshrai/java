@@ -23,6 +23,7 @@ public class IPL {
 			break;
 		default:
 			System.out.println("Enter valid stadium!");
+			break;
 		}
 			
 	}
