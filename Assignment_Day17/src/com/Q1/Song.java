@@ -5,9 +5,38 @@ import java.util.Objects;
 public class Song {
 	private String movieName;
 	private String songName;
+	
+	
+	public Song(String movieName, String songName) {
+		this.movieName = movieName;
+		this.songName = songName;
+	}
+	
+	public Song() {
+		// TODO Auto-generated constructor stub
+	}
+	public String getMovieName() {
+		return movieName;
+	}
+	public void setMovieName(String movieName) {
+		this.movieName = movieName;
+	}
+	public String getSongName() {
+		return songName;
+	}
+	public void setSongName(String songName) {
+		this.songName = songName;
+	}
+	void play() {
+		System.out.println("Song "+getSongName() + " of " + getMovieName() + " is playing...!");
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(movieName, songName);
+	}
+	@Override
+	public String toString() {
+		return "Song [movieName=" + movieName + ", songName=" + songName + "]";
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -19,13 +48,5 @@ public class Song {
 			return false;
 		Song other = (Song) obj;
 		return Objects.equals(movieName, other.movieName) && Objects.equals(songName, other.songName);
-	}
-	public Song(String movieName, String songName) {
-		this.movieName = movieName;
-		this.songName = songName;
-	}
-	
-	void play() {
-		System.out.println("Song "+songName + " of " + movieName + " is playing...!");
 	}
 }

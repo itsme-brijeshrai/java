@@ -1,11 +1,14 @@
 package com.Q1;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class Playlist {
-	public List<Song> songs = new ArrayList<>();
+import java.util.*;
+public class PlayList {
+	 List<Song> songs = new ArrayList<>();
+	
 	public void addSong(Song song) {
-		
+		if(songs.add(song)){
+			System.out.println("Song added to the playlist sucessfully.");
+		}else {
+			System.out.println("Song is already added in the playlist");
+		}
 	}
+	
 }
