@@ -4,10 +4,11 @@ public class PlayList {
 	 List<Song> songs = new ArrayList<>();
 	
 	public void addSong(Song song) {
-		if(songs.add(song)){
-			System.out.println("Song added to the playlist sucessfully.");
+		if(songs.contains(song)){
+			System.out.println("Song is already added in the playlist.");
 		}else {
-			System.out.println("Song is already added in the playlist");
+			songs.add(song);
+			System.out.println("Song added to the playlist sucessfully");
 		}
 	}
 	
