@@ -17,7 +17,9 @@ public class EmployeeDriver {
 			es.add(new Employee(id,name,salary));
 		}
 		sc.close();
-		System.out.println(es);
+		for(Employee emp:es) {
+			System.out.println(emp);
+		}
 	}
 
 }
