@@ -1,0 +1,84 @@
+Question 3 ->
+Explain the difference between Statement and Prepared Statements.
+-----------------------------------------------------------------
+Statement -> 
+1.	The Statement interface accepts strings as SQL queries. Thus, the code becomes less readable when we concatenate SQL strings:
+
+public void insert(PersonEntity personEntity) {
+    String query = "INSERT INTO persons(id, name) VALUES(" + personEntity.getId() + ", '"
+      + personEntity.getName() + "')";
+
+    Statement statement = connection.createStatement();
+    statement.executeUpdate(query);
+}
+2.	It is vulnerable to SQL injection. The next examples illustrate this weakness.
+
+In the first line, the update will set the column “name” on all the rows to “hacker“, as anything after “—” is interpreted as a comment in SQL and the conditions of the update statement will be ignored.  In the second line, the insert will fail because the quote on the “name” column has not been escaped:
+
+dao.update(new PersonEntity(1, "hacker' --"));
+dao.insert(new PersonEntity(1, "O'Brien"))
+
+3.	JDBC passes the query with inline values to the database. Therefore, there's no query optimization, and most importantly, the database engine must ensure all the checks. Also, the query will not appear as the same to the database and it will prevent cache usage. Similarly, batch updates need to be executed separately:
+
+public void insert(List<PersonEntity> personEntities) {
+    for (PersonEntity personEntity: personEntities) {
+        insert(personEntity);
+    }
+}
+
+4 i.	The Statement interface is suitable for DDL queries like CREATE, ALTER, and DROP:
+
+public void createTables() {
+    String query = "create table if not exists PERSONS (ID INT, NAME VARCHAR(45))";
+    connection.createStatement().executeUpdate(query);
+}
+4 ii. the Statement interface can’t be used for storing and retrieving files and arrays.
+
+Prepared Statement ->
+1.	the PreparedStatement extends the Statement interface. It has methods to bind various object types, including files and arrays. Hence, the code becomes easy to understand:
+
+public void insert(PersonEntity personEntity) {
+    String query = "INSERT INTO persons(id, name) VALUES( ?, ?)";
+
+    PreparedStatement preparedStatement = connection.prepareStatement(query);
+    preparedStatement.setInt(1, personEntity.getId());
+    preparedStatement.setString(2, personEntity.getName());
+    preparedStatement.executeUpdate();
+}
+2.	it protects against SQL injection, by escaping the text for all the parameter values provided:
+
+@Test 
+void whenInsertAPersonWithQuoteInText_thenItNeverThrowsAnException() {
+    assertDoesNotThrow(() -> dao.insert(new PersonEntity(1, "O'Brien")));
+}
+
+@Test 
+void whenAHackerUpdateAPerson_thenItUpdatesTheTargetedPerson() throws SQLException {
+
+    dao.insert(Arrays.asList(new PersonEntity(1, "john"), new PersonEntity(2, "skeet")));
+    dao.update(new PersonEntity(1, "hacker' --"));
+
+    List<PersonEntity> result = dao.getAll();
+    assertEquals(Arrays.asList(
+      new PersonEntity(1, "hacker' --"), 
+      new PersonEntity(2, "skeet")), result);
+}
+3.	the PreparedStatement uses pre-compilation. As soon as the database gets a query, it will check the cache before pre-compiling the query. Consequently, if it is not cached, the database engine will save it for the next usage.
+
+	Moreover, this feature speeds up the communication between the database and the JVM through a non-SQL binary protocol. That is to say, there is less data in the packets, so the communication between the servers goes faster.
+
+4 i.	the PreparedStatement provides a batch execution during a single database connection. Let's see this in action:
+
+
+
+public void insert(List<PersonEntity> personEntities) throws SQLException {
+    String query = "INSERT INTO persons(id, name) VALUES( ?, ?)";
+    PreparedStatement preparedStatement = connection.prepareStatement(query);
+    for (PersonEntity personEntity: personEntities) {
+        preparedStatement.setInt(1, personEntity.getId());
+        preparedStatement.setString(2, personEntity.getName());
+        preparedStatement.addBatch();
+    }
+    preparedStatement.executeBatch();
+}
+4 ii.	PreparedStatement provides an easy way to store and retrieve files by using BLOB and CLOB data types. 
